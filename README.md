@@ -23,13 +23,13 @@ Powershell 5.0 o superior
 
 • Bypass de UAC & AMSI en sistemas de 64 bits
 
-• Nuevo módulo disponible: Remote Desktop Caching
+• Nuevo módulo disponible: Remote Desktop Forensics
 
 • Nuevo módulo disponible: Desactivar logs del sistema (Invoke-Phant0m)
 
 • Nuevo módulo disponible: Sticky Keys Hacking
 
-• Nuevo módulo disponible: Remote Desktop History
+• Nuevo módulo disponible: Local Port Forwarding
 
 • Nuevo ataque disponible: Session Hijacking (sin contraseña)
 
@@ -101,13 +101,13 @@ Powershell 5.0 or higher
 
 • UAC & AMSI bypass in 64-bit systems
 
-• New module available: Remote Desktop Caching
+• New module available: Remote Desktop Forensics
 
 • New module available: Disable system logs (Invoke-Phant0m)
 
 • New module available: Sticky Keys Hacking
 
-• New available module: Remote Desktop History
+• New available module: Local Port Forwarding
 
 • New available attack: Session Hijacking (passwordless)
 
