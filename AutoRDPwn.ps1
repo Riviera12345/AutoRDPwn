@@ -91,7 +91,7 @@ if($Language -in 'English') {
   $txt16 = "Finally, the NTLM hash"
   $txt17 = "Do you want to connect through PSSession?"
   $txt18 = "Elevating privileges with token duplication.."
-  $txt19 = "Do you want to see or control the computer?:` "
+  $txt19 = "Do you want to see or control the computer?"
   $txt20 = "Modifying permissions to view the remote computer.."
   $txt21 = "Modifying permissions to control the remote computer.."
   $txt22 = "Changes in the Windows registry made successfully"
@@ -147,7 +147,7 @@ if($Language -in 'Spanish') {
   $txt16 = "Por último, el hash NTLM"
   $txt17 = "Quieres conectarte a través de PSSession?"
   $txt18 = "Elevando privilegios con token duplication.."
-  $txt19 = "Quieres ver o controlar el equipo?:` "
+  $txt19 = "Quieres ver o controlar el equipo?"
   $txt20 = "Modificando permisos para visualizar el equipo remoto.."
   $txt21 = "Modificando permisos para controlar el equipo remoto.."
   $txt22 = "Cambios en el registro de Windows realizados con éxito"
@@ -354,8 +354,7 @@ if($Language -in 'Spanish') {
    $session = get-pssession ; if ($session){ 
 
         do { $Host.UI.RawUI.ForegroundColor = 'Gray'
-	if ($stickykeys){ $input = "control" } else { Write-Host "" 
-        $input = Read-Host -Prompt "txt19" }
+	if ($stickykeys){ $input = "control" } else { Write-Host "" ; $input = Read-Host -Prompt "$txt19" }
         switch -wildcard ($input) {
 
         'ver' { $control = "false" ; Write-Host "" ;
