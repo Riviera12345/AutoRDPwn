@@ -1,6 +1,4 @@
-
 ![AutoRDPwn](https://user-images.githubusercontent.com/34335312/45109339-8b203580-b13f-11e8-9de7-1210114313bb.png)
-
 
 
 **AutoRDPwn** es un script creado en Powershell y diseñado para automatizar el ataque **Shadow** en equipos Microsoft Windows. Esta vulnerabilidad permite a un atacante remoto visualizar el escritorio de su víctima sin su consentimiento, e incluso controlarlo a petición. Para su correcto funcionamiento, es necesario cumplir los requisitos que se describen en la guía de uso.
@@ -52,8 +50,8 @@ https://darkbyte.net/autordpwn-la-guia-definitiva
 
 
 # Capturas de pantalla
-![autordpwn_esp1](https://user-images.githubusercontent.com/34335312/48354341-be2bfb80-e691-11e8-9d37-f88639592482.PNG)
-![autordpwn_esp2](https://user-images.githubusercontent.com/34335312/48354342-be2bfb80-e691-11e8-95fb-421064656516.PNG)
+![autordpwn_sp1](https://user-images.githubusercontent.com/34335312/48728393-24d28b80-ec35-11e8-928b-b7bc1d9ecf97.png)
+![autordpwn_sp2](https://user-images.githubusercontent.com/34335312/48728398-269c4f00-ec35-11e8-97f2-14ba9d893396.png)
 
 
 # Licencia
@@ -129,8 +127,8 @@ powershell -ep bypass "cd $env:temp ; iwr https://darkbyte.net/autordpwn.php -ou
 https://darkbyte.net/autordpwn-la-guia-definitiva
 
 # Screenshots
-![autordpwn_eng1](https://user-images.githubusercontent.com/34335312/48354339-be2bfb80-e691-11e8-8a95-b45823b97f82.PNG)
-![autordpwn_eng2](https://user-images.githubusercontent.com/34335312/48354340-be2bfb80-e691-11e8-9037-9156ac0715a2.PNG)
+![autordpwn_en1](https://user-images.githubusercontent.com/34335312/48728381-200dd780-ec35-11e8-9551-770166774b04.png)
+![autordpwn_en2](https://user-images.githubusercontent.com/34335312/48728385-22703180-ec35-11e8-97f2-cde0c903a342.png)
 
 
 # License
