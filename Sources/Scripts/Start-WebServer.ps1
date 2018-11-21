@@ -46,7 +46,7 @@ Scheduled tasks are always running with low priority, so some functions might be
 Version 1.1, 2017-11-23
 Author: Markus Scholtes
 #>
-Param([STRING]$BINDING = 'http://+:4433/', [STRING]$BASEDIR = "")
+Param([STRING]$BINDING = 'http://+:8080/', [STRING]$BASEDIR = "")
 
 # No adminstrative permissions are required for a binding to "localhost"
 # $BINDING = 'http://localhost:8080/'
