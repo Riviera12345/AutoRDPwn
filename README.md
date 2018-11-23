@@ -29,6 +29,8 @@ Powershell 5.0 o superior
 
 • Nuevo módulo disponible: Local Port Forwarding
 
+• Nuevo módulo disponible: Powershell Web Server
+
 • Nuevo ataque disponible: Session Hijacking (sin contraseña)
 
 **ATENCIÓN!** Este ataque es muy intrusivo y solo puede utilizarse localmente
@@ -106,6 +108,8 @@ Powershell 5.0 or higher
 • New module available: Sticky Keys Hacking
 
 • New available module: Local Port Forwarding
+
+• New available module: Powershell Web Server
 
 • New available attack: Session Hijacking (passwordless)
 
